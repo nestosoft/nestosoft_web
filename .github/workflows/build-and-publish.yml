@@ -39,7 +39,7 @@ jobs:
       
       - name: Build image
         run: docker build . --file infrastructure/docker/Dockerfile --target production --tag ${{ env.GAR_LOCATION }}
-        working-directory: /
+        working-directory: ~/_work/nestosoft_web/nestosoft_web
       
       - name: Push image
         run: docker push ${{ env.GAR_LOCATION }}
