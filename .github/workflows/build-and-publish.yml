@@ -38,8 +38,7 @@ jobs:
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
       
       - name: Build image
-        run: docker build . --file infrastructure/docker/Dockerfile --target production --tag ${{ env.GAR_LOCATION }}
-        working-directory: ~/_work/nestosoft_web/nestosoft_web
+        run: docker build . --file nestosoft_web/nestosoft_web/infrastructure/docker/Dockerfile --target production --tag ${{ env.GAR_LOCATION }}
       
       - name: Push image
         run: docker push ${{ env.GAR_LOCATION }}
