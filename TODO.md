@@ -11,4 +11,11 @@ This is a react application showing the nestosoft website and the front end for 
 # TODO:
  - add CDN to the cluster
 
+ # Logo has been generated from deepai.org
+ with the prompt: Generate a logo for a software company called nestosoft where they offer the up to date quality software
+
+ # Dockerfile
+ https://medium.com/@itsuki.enjoy/dockerize-a-next-js-app-4b03021e084d
+
+
 
