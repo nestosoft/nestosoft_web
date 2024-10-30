@@ -5,8 +5,7 @@ name: 'Build and Publish to registry'
 
 on:
   push:
-    branches:
-      - '"main"'
+    branches: [ "main" ]
 
 env:
   PROJECT_ID: 'nestosoft-web'
@@ -14,8 +13,11 @@ env:
   GAR_LOCATION: 'europe-west2-docker.pkg.dev/nestosoft-devops/nestosoft-web'
 
 jobs:
-   build-push-artifact:
+   
+  build-push-artifact:
+    
     runs-on: self-hosted
+    
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v3"
