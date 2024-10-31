@@ -9,6 +9,7 @@ RUN addgroup -g 1001 -S servicegroup
 RUN adduser -S serviceagent -u 1001
 USER serviceagent
 # Run build
+COPY ../../ .
 RUN npm run build
 COPY --chown=serviceagent:servicegroup /app/.next ./.next
 COPY --chown=serviceagent:servicegroup /app/node_modules ./node_modules
