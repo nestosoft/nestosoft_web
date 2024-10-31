@@ -48,9 +48,9 @@ jobs:
         name: Tag Docker image and push to Google Artifact Registry
         uses: docker/build-push-action@v6
         with:
-          target: production
+          target: dev
           file: ./infrastructure/docker/Dockerfile
           push: true
           tags: |
-             ${{ env.GAR_LOCATION }}/nestosoft-web:${{ steps.get-tag.outputs.short_ref }}
-             ${{ env.GAR_LOCATION }}/nestosoft-web:latest
+             ${{ env.GAR_LOCATION }}/nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
+             ${{ env.GAR_LOCATION }}/nestosoft-web-dev:latest
