@@ -42,7 +42,17 @@ jobs:
         run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
 
       - name: Build Dev Image
-        run: docker build . --file ./infrastructure/docker/Dockerfile --target nestosoft-web-dev --tag nestosoft-web-dev:latest --tag nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
+        run: docker build . --file ./infrastructure/docker/Dockerfile --target dev --tag nestosoft-web-dev:latest --tag nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
+
+      - name: Tag Dev Image
+        run: docker tag dev ${{ env.GAR_LOCATION }}/nestosoft-web-dev:latest
+
+      - name: Tag Dev Image
+        run: docker tag dev ${{ env.GAR_LOCATION }}/nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
 
       - name: Publish Dev image
-        run: docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev -a
+        run: docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev
+
+      - name: Check images
+        run: gcloud artifacts docker images list ${{ env.GAR_LOCATION }}/nestosoft-web-dev --include-tags
+

@@ -10,7 +10,7 @@ COPY . .
 RUN npm run build
 
 
-FROM base AS nestosoft-web
+FROM base AS prod
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -27,7 +27,7 @@ COPY --from=builder --chown=serviceagent:servicegroup /app/public ./public
 
 CMD npm start
 
-FROM base AS nestosoft-web-dev
+FROM base AS dev
 ENV NODE_ENV=development
 RUN npm install 
 COPY . .
