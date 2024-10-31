@@ -1,17 +1,16 @@
-FROM node:22-alpine AS base
+FROM node:22-alpine as base
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 WORKDIR /app
-COPY ../../package*.json ./
+COPY package*.json ./
 EXPOSE 3000
 
-# Create a base that will be executed when COPY --from=builder are called
-FROM base AS builder
+FROM base as builder
 WORKDIR /app
-COPY ../../ .
+COPY . .
 RUN npm run build
 
-# Production build
-FROM base AS production
+
+FROM base as production
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -22,15 +21,14 @@ RUN adduser -S serviceagent -u 1001
 USER serviceagent
 
 COPY --from=builder --chown=serviceagent:servicegroup /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=serviceagent:servicegroup /app/node_modules ./node_modules
+COPY --from=builder --chown=serviceagent:servicegroup /app/package.json ./package.json
+COPY --from=builder --chown=serviceagent:servicegroup /app/public ./public
 
-CMD ["npm", "start"]
+CMD npm start
 
-# Dev build
-FROM base AS dev
+FROM base as dev
 ENV NODE_ENV=development
 RUN npm install 
-COPY ../../ .
-CMD ["npm", "run", "dev"]
+COPY . .
+CMD npm run dev
