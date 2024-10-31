@@ -5,10 +5,6 @@ WORKDIR /app
 #COPY package*.json ./
 COPY ../../ ./
 RUN npm ci
-# Setup user
-RUN addgroup -g 1001 -S servicegroup
-RUN adduser -S serviceagent -u 1001
-USER serviceagent
 # Run build
 RUN npm run build
 ENV NODE_ENV=production
