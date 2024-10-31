@@ -11,11 +11,6 @@ RUN adduser -S serviceagent -u 1001
 USER serviceagent
 # Run build
 RUN npm run build
-COPY --chown=serviceagent:servicegroup /app/.next ./.next
-COPY --chown=serviceagent:servicegroup /app/node_modules ./node_modules
-COPY --chown=serviceagent:servicegroup /app/package.json ./package.json
-COPY --chown=serviceagent:servicegroup /app/public ./public
-
 ENV NODE_ENV=production
 EXPOSE 3000
 
