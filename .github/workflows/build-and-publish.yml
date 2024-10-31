@@ -43,13 +43,13 @@ jobs:
       
       - name: Tag Dev Image
         run: |- 
-          docker tag nestosoft-web-dev ${{ env.GAR_LOCATION }}/nestosoft-web:latest
-          docker tag nestosoft-web-dev ${{ env.GAR_LOCATION }}/nestosoft-web:${{github.run_number}}
+          docker tag nestosoft-web ${{ env.GAR_LOCATION }}/nestosoft-web:latest
+          docker tag nestosoft-web ${{ env.GAR_LOCATION }}/nestosoft-web:build-${{github.run_number}}
 
       - name: Publish Dev image
         run: |-
           docker push ${{ env.GAR_LOCATION }}/nestosoft-web:latest
-          docker push ${{ env.GAR_LOCATION }}/nestosoft-web:${{github.run_number}}
+          docker push ${{ env.GAR_LOCATION }}/nestosoft-web:build-${{github.run_number}}
 
       - name: Check images
         run: gcloud artifacts docker images list ${{ env.GAR_LOCATION }}/nestosoft-web --include-tags
