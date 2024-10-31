@@ -37,8 +37,6 @@ jobs:
         run: |-
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
       
-      
-
       - id: get-tag
         name: Get tag
         run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
@@ -47,4 +45,4 @@ jobs:
         run: docker build . --file ./infrastructure/docker/Dockerfile --target dev --tag nestosoft-web-dev:latest --tag nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
 
       - name: Publish Dev image
-        run: docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev
+        run: docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
