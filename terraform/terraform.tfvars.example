@@ -1,0 +1,6 @@
+prefix = "nestosoft-dev"
+environment = "testing"
+billing_code = "100000"
+public_subnets = [ "SUBNET_1","SUBNET_2" ]
+vpc_id = "VPC_ID"
+api_key = "Api_key!1"
