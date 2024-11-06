@@ -1,11 +1,13 @@
 # This workflow will build a docker container, publish it to Google Container
 # Registry
 
-name: 'Build and Publish to registry'
+name: 'Build and Publish to registry DEV version'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*", "*/*", "**", "!main" ]
+  pull_request:
+    branches: [ "development", "main" ]
 
 env:
   PROJECT_ID: 'nestosoft-web'
@@ -36,21 +38,19 @@ jobs:
       - name: "Docker auth"
         run: |-
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
-      
-      - id: get-tag
-        name: Get tag
-        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-
+    
       - name: Build Dev Image
         run: docker build . --file ./docker/Dockerfile_dev -t nestosoft-web-dev
       
       - name: Tag Dev Image
         run: |- 
           docker tag nestosoft-web-dev ${{ env.GAR_LOCATION }}/nestosoft-web-dev:latest
-          docker tag nestosoft-web-dev ${{ env.GAR_LOCATION }}/nestosoft-web-dev:${{ steps.get-tag.outputs.short_ref }}
+          docker tag nestosoft-web-dev ${{ env.GAR_LOCATION }}/nestosoft-web-dev:build-${{ github.run_number }}
 
       - name: Publish Dev image
-        run: docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev
+        run: |-
+          docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev:latest
+          docker push ${{ env.GAR_LOCATION }}/nestosoft-web-dev:build-${{ github.run_number }}
 
       - name: Check images
         run: gcloud artifacts docker images list ${{ env.GAR_LOCATION }}/nestosoft-web-dev --include-tags
