@@ -1,11 +1,13 @@
 # This workflow will build a docker container, publish it to Google Container
 # Registry
 
-name: 'Build and Publish to registry'
+name: 'Build and Publish to registry DEV version'
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*", "*/*", "**", "!main" ]
+  pull_request:
+    branches: [ "*", "*/*", "**" ]
 
 env:
   PROJECT_ID: 'nestosoft-web'
