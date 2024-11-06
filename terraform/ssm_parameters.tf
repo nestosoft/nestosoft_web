@@ -30,5 +30,5 @@ resource "aws_iam_policy" "ssm_access" {
 
 resource "aws_iam_role_policy_attachment" "ssm_access" {
   role = var.ec2_role_name
-  policy_arn = aws_iam_policy_document.ssm_access.arn
+  policy_arn = aws_iam_policy.ssm_access.arn
 }
