@@ -52,3 +52,14 @@ variable "tfe_workspace_name" {
   type        = string
   description = "(Required) Name of networking workspace to get information."
 }
+
+# Secrets
+variable "ec2_role_name" {
+  type = string
+  description = "(Required) EC2 role names."
+}
+
+variable "api_key_secret_id" {
+  type = string
+  description = "(Required) Secret ID for API key for web app."
+}
