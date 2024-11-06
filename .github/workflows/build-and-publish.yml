@@ -6,8 +6,6 @@ name: 'Build and Publish to registry for production'
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   PROJECT_ID: 'nestosoft-web'
