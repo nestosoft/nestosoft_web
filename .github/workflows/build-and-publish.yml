@@ -1,0 +1,56 @@
+# This workflow will build a docker container, publish it to Google Container
+# Registry
+
+name: 'Build and Publish to registry for production'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  PROJECT_ID: 'nestosoft-web'
+  REGION: 'europe-west2' 
+  GAR_LOCATION: 'europe-west2-docker.pkg.dev/nestosoft-devops/nestosoft-web'
+
+jobs:
+   
+  build-push-artifact:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v3"
+        
+      - id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+          
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+        
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
+        
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+      
+      - name: Build Dev Image
+        run: docker buildx build . --file ./docker/Dockerfile_prod -t nestosoft-web
+      
+      - name: Tag Dev Image
+        run: |- 
+          docker tag nestosoft-web ${{ env.GAR_LOCATION }}/nestosoft-web:latest
+          docker tag nestosoft-web ${{ env.GAR_LOCATION }}/nestosoft-web:build-${{github.run_number}}
+
+      - name: Publish Dev image
+        run: |-
+          docker push ${{ env.GAR_LOCATION }}/nestosoft-web:latest
+          docker push ${{ env.GAR_LOCATION }}/nestosoft-web:build-${{github.run_number}}
+
+      - name: Check images
+        run: gcloud artifacts docker images list ${{ env.GAR_LOCATION }}/nestosoft-web --include-tags
+
