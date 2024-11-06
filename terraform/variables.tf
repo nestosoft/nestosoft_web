@@ -28,8 +28,8 @@ variable "ip_range" {
 
 variable "instance_type" {
   type        = string
-  description = "(Optional) EC2 Instance type to use for web app. Defaults to t4g.nano."
-  default     = "t4g.nano"
+  description = "(Optional) EC2 Instance type to use for web app. Defaults to t3.micro."
+  default     = "t3.micro"
 }
 
 variable "api_key" {
@@ -37,14 +37,13 @@ variable "api_key" {
   description = "(Required) API key for web app to talk to SaaS platform."
 }
 
-variable "public_subnets" {
-  type        = list(string)
-  description = "(Required) List of subnet IDs for EC2 instance deployments."
-}
-
-variable "vpc_id" {
+# TFC variables
+variable "tfe_organization" {
   type        = string
-  description = "(Required) VPC ID of VPC for application deployment."
+  description = "(Required) Name of TFC organization."
 }
 
-
+variable "tfe_workspace_name" {
+  type        = string
+  description = "(Required) Name of networking workspace to get information."
+}
