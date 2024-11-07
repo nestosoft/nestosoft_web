@@ -58,6 +58,7 @@ resource "aws_instance" "main" {
     secret_id = var.api_key_secret_id
     host_list_ssm_name = local.host_list_ssm_name
     site_name_ssm_name = local.site_name_ssm_name
+    region = var.region
     })
 
 }

@@ -9,4 +9,4 @@
 - uncomment output "private_key_pem"
 - uncomment output "webapp_instance0_public_ip"
 - save that into a webapp.pem file replacing \n with empty spaces and formatting it correctly
-- 
+- ssh into the instance with `ssh -i webapp.pem ec2-user@IP`
