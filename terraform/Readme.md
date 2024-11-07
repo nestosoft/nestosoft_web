@@ -9,5 +9,6 @@
 - uncomment output "private_key_pem"
 - uncomment output "webapp_instance0_public_ip"
 - uncomment security group resource "aws_security_group.webapp_ssh_inbound_sg"
+- add "aws_security_group.webapp_ssh_inbound_sg.id" to the vpc_security_group_ids in the "aws_instance.main"
 - save that into a webapp.pem file replacing \n with empty spaces and formatting it correctly
 - ssh into the instance with `ssh -i webapp.pem ec2-user@IP`
