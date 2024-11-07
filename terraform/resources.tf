@@ -53,7 +53,7 @@ resource "aws_instance" "main" {
   # This is important to replace the instances when a change is made
   user_data_replace_on_change = true
 
-  user_data = templatefile("./templates/provisioner_secret.sh", { 
+  user_data = templatefile("./templates/provisioner-secret.sh", { 
     playbook_repository = var.playbook_repository 
     secret_id = var.api_key_secret_id
     host_list_ssm_name = local.host_list_ssm_name
