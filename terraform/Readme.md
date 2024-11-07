@@ -8,5 +8,6 @@
 # Checking EC2 instances resources 
 - uncomment output "private_key_pem"
 - uncomment output "webapp_instance0_public_ip"
+- uncomment security group resource "aws_security_group.webapp_ssh_inbound_sg"
 - save that into a webapp.pem file replacing \n with empty spaces and formatting it correctly
 - ssh into the instance with `ssh -i webapp.pem ec2-user@IP`

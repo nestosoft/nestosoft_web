@@ -25,21 +25,21 @@ resource "aws_security_group" "webapp_http_inbound_sg" {
   tags = local.common_tags
 }
 
-resource "aws_security_group" "webapp_ssh_inbound_sg" {
-  name        = "${local.name_prefix}-ssh-inbound"
-  description = "Allow SSH from certain ranges"
+# resource "aws_security_group" "webapp_ssh_inbound_sg" {
+#   name        = "${local.name_prefix}-ssh-inbound"
+#   description = "Allow SSH from certain ranges"
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.ip_range]
-  }
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = [var.ip_range]
+#   }
 
-  vpc_id = data.tfe_outputs.networking.nonsensitive_values.vpc_id
+#   vpc_id = data.tfe_outputs.networking.nonsensitive_values.vpc_id
 
-  tags = local.common_tags
-}
+#   tags = local.common_tags
+# }
 
 resource "aws_security_group" "webapp_outbound_sg" {
   name        = "${local.name_prefix}-webapp-outbound"
