@@ -1,7 +1,7 @@
 # Nestosoft website
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d186feb6-ef29-436a-ad03-5732ab0f1999/deploy-status)](https://app.netlify.com/sites/nestosoft/deploys)
-[https://nestosoft.netlify.app/] Nestosoft in netlify
+[Nestosoft in netlify](https://nestosoft.netlify.app)
 
 # Uses:
 

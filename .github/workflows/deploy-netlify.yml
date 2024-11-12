@@ -39,7 +39,7 @@ jobs:
           netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
           build-dir: "./dist"
           draft: true
-          comment-on-commit: true
+          comment-on-pull-request: true
 
   # This job will:
   #   * deploy a production build every time there is a push only on the main branch
@@ -72,4 +72,4 @@ jobs:
           netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
           netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
           build-dir: "./dist"
-          comment-on-commit: false
+          comment-on-commit: true
