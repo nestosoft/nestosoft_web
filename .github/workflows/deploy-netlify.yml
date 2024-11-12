@@ -49,8 +49,6 @@ jobs:
     name: Publish to Netlify
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    env:
-      PR_NUMBER: ${{ github.event.number }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -86,4 +84,4 @@ jobs:
       - name: "🏷️ Push github event number tag"
         uses: EndBug/latest-tag@latest
         with:
-          tag-name: ${{env.PR_NUMBER}}
+          ref: release-${{ github.event.number }}-${{github.run_number}}
