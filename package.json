@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite --port 8080",
     "build": "tsc -b && vite build",
-    "build-netlify": "tsc -b && vite build --mode netlify",
     "lint": "eslint .",
     "preview": "vite preview --port 8080"
   },
