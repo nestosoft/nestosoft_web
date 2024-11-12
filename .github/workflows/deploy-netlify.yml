@@ -25,22 +25,20 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
-      - name: Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
-
       - name: Install dependencies
         run: npm install
 
       - name: Build artifact
         run: npm run build
 
-      - name: Deploy to Netlify
-        id: netlify_deploy
-        run: |
-          netlify deploy \
-            --dir dist \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.NETLIFY_ACCESS_KEY }}
+      - name: Deploy production to Netlify
+        uses: South-Paw/action-netlify-deploy@v1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
+          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
+          build-dir: "./dist"
+          comment-on-commit: true
 
   # This job will:
   #   * deploy a production build every time there is a push only on the main branch
@@ -54,14 +52,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
           node-version: 22.x
           cache: "npm"
           cache-dependency-path: package-lock.json
-
-      - name: Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
 
       - name: Install dependencies
         run: npm install
@@ -69,11 +64,11 @@ jobs:
       - name: Build artifact
         run: npm run build
 
-      - name: Deploy to Netlify
-        id: netlify_deploy
-        run: |
-          netlify deploy \
-            --dir dist \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.NETLIFY_ACCESS_KEY }}
-            --prod
+      - name: Deploy production to Netlify
+        uses: South-Paw/action-netlify-deploy@v1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
+          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
+          build-dir: "./dist"
+          comment-on-commit: true
