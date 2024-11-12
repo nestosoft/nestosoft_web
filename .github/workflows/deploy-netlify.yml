@@ -14,7 +14,7 @@ jobs:
   deployCommitDraft:
     name: Deploy draft to Netlify
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 22.x
