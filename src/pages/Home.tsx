@@ -29,14 +29,6 @@ const Home = ({}) => {
             and keep it updated, I will help to build automated CI/CD pipelines so the proccess of releasing new featues to production will be done with minimum risk.
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger>Full stack development</AccordionTrigger>
-            <AccordionContent>
-            Real full stack development, from infrastructure to delivery, from solution architecture to project management. Not just the programming and/or testing.
-           Full software development cycle!! If I have to work in a different technology to make the project success, there I will be, if I have to step in to takes
-           a leadership role and talk to stakeholder, there I will be. If I have to do some manual testing there I will be.
-            </AccordionContent>
-          </AccordionItem>
         </Accordion>
       </>
     )
