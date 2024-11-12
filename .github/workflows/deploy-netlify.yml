@@ -98,7 +98,7 @@ jobs:
           netlify deploy \
             --dir dist \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.NETLIFY_ACCESS_KEY }}
+            --auth ${{ secrets.NETLIFY_ACCESS_KEY }} \
             --prod
 
       - name: Create git tag
