@@ -6,12 +6,6 @@ on:
     types:
       - opened
       - synchronize
-
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
-
 jobs:
   # This job will:
   #   * deploy a draft every time there is a commit that is not on master branch
