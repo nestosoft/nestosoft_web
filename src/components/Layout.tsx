@@ -16,6 +16,7 @@ const Layout = ({}) => {
             <Outlet />
           </div>
           <footer>
+            Hosted in {import.meta.env.VITE_HOST}
           </footer>
         </div> 
     )
