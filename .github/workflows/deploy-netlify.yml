@@ -38,6 +38,7 @@ jobs:
           netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
           netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
           build-dir: "./dist"
+          draft: true
           comment-on-commit: true
 
   # This job will:
