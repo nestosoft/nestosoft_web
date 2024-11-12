@@ -1,6 +1,11 @@
 name: "netlify ci-cd pipeline"
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   # This job will:
