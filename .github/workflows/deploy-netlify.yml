@@ -1,6 +1,11 @@
 name: "netlify ci-cd pipeline"
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   # This job will:
@@ -9,11 +14,12 @@ jobs:
   deployCommitDraft:
     name: Deploy draft to Netlify
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js 22.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
           cache: "npm"
@@ -30,8 +36,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
           build-dir: "./dist"
+          draft: true
           comment-on-commit: true
 
   # This job will:
@@ -62,7 +69,7 @@ jobs:
         uses: South-Paw/action-netlify-deploy@v1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-          build-dir: "./build"
+          netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
+          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
+          build-dir: "./dist"
           comment-on-commit: true
