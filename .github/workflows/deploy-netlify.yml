@@ -7,6 +7,9 @@ on:
       - opened
       - synchronize
 
+permissions:
+  pull-requests: write
+
 jobs:
   # This job will:
   #   * deploy a draft every time there is a commit that is not on master branch
@@ -25,21 +28,55 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Install Netlify
+        run: npm install netlify-cli@17.10.1 -g
+
       - name: Install dependencies
         run: npm install
 
       - name: Build artifact
         run: npm run build
 
-      - name: Deploy production to Netlify
-        uses: South-Paw/action-netlify-deploy@v1.2.0
+      - name: Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          netlify deploy \
+            --dir dist \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_ACCESS_KEY }}
+            --json > deploy_output.json
+
+      - name: Generate URL Preview
+        id: url_preview
+        run: |
+          NETLIFY_PREVIEW_URL=$(jq -r '.deploy_url' deploy_output.json)
+          echo "NETLIFY_PREVIEW_URL=$NETLIFY_PREVIEW_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment URL Preview on PR
+        uses: actions/github-script@v7
+        env:
+          NETLIFY_PREVIEW_URL: ${{ steps.url_preview.outputs.NETLIFY_PREVIEW_URL }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
-          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
-          build-dir: "./dist"
-          draft: true
-          comment-on-pull-request: true
+          script: |
+            async function comment(){
+              const result = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+              })
+              const issueNumber = result.data[0].number
+              if(issueNumber){
+                await github.rest.issues.createComment({
+                  issue_number: issueNumber,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: 'Preview URL: ' + process.env.NETLIFY_PREVIEW_URL
+                })
+              }else{
+                console.log('No PR found for commit ' + context.sha)
+              }
+            }
+            comment()
 
   # This job will:
   #   * deploy a production build every time there is a push only on the main branch
@@ -59,17 +96,27 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Install Netlify
+        run: npm install netlify-cli@17.10.1 -g
+
       - name: Install dependencies
         run: npm install
 
       - name: Build artifact
         run: npm run build
 
-      - name: Deploy production to Netlify
-        uses: South-Paw/action-netlify-deploy@v1.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_ACCESS_KEY }}
-          netlify-site-id: ${{secrets.NETLIFY_SITE_ID }}
-          build-dir: "./dist"
-          comment-on-commit: true
+      - name: Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          netlify deploy \
+            --dir dist \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_ACCESS_KEY }}
+            --prod
+
+      - name: Create git tag
+        run: |
+          git tag ${{github.run_number}}
+
+      - name: Push git tag
+        run: git push origin ${{github.run_number}}
