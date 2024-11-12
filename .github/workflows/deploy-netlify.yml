@@ -48,25 +48,6 @@ jobs:
             --auth ${{ secrets.NETLIFY_ACCESS_KEY }} \
             --json > deploy_output.json
 
-      - name: Generate URL Preview
-        id: url_preview
-        run: |
-          NETLIFY_PREVIEW_URL=$(jq -r '.deploy_url' deploy_output.json)
-          echo "NETLIFY_PREVIEW_URL=$NETLIFY_PREVIEW_URL" >> "$GITHUB_OUTPUT"
-
-      - name: Comment URL Preview on PR
-        uses: actions/github-script@v7
-        env:
-          NETLIFY_PREVIEW_URL: ${{ steps.url_preview.outputs.NETLIFY_PREVIEW_URL }}
-        with:
-          script: |
-            github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: '👋Preview URL: ' + process.env.NETLIFY_PREVIEW_URL
-            })
-
   # This job will:
   #   * deploy a production build every time there is a push only on the main branch
   #   * comment that commit with the deploy URL
@@ -74,6 +55,8 @@ jobs:
     name: Publish to Netlify
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      PR_NUMBER: ${{ github.event.number }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -103,9 +86,10 @@ jobs:
             --auth ${{ secrets.NETLIFY_ACCESS_KEY }} \
             --prod
 
-      - name: Create git tag
-        run: |
-          git tag ${{github.run_number}}
+      - name: "🏷️ Push latest tag"
+        uses: EndBug/latest-tag@latest
 
-      - name: Push git tag
-        run: git push origin ${{github.run_number}}
+      - name: "🏷️ Push github event number tag"
+        uses: EndBug/latest-tag@latest
+        with:
+          tag-name: ${{env.PR_NUMBER}}
