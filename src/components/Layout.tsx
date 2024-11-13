@@ -5,7 +5,7 @@ import logo from '../../public/nestosoft_logo_black_icon.svg'
 
 
 const Layout = ({}) => {
-       
+    console.log(import.meta.env.VITE_HOST)   
     return (
         <div className='bg-white container mx-auto mt-4'>
           <header className='flex flex-row'>
