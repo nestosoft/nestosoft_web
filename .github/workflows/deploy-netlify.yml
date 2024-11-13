@@ -31,7 +31,9 @@ jobs:
         run: npm install
 
       - name: Build artifact
-        run: npm run build
+        run: |
+          cp .env.netlify .env.production
+          npm run build
 
       - name: Deploy to Netlify
         id: netlify_deploy
@@ -67,7 +69,9 @@ jobs:
         run: npm install
 
       - name: Build artifact
-        run: npm run build
+        run: |
+          cp .env.netlify .env.production
+          npm run build
 
       - name: Deploy to Netlify
         id: netlify_deploy
