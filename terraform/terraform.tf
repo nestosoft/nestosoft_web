@@ -13,6 +13,11 @@ terraform {
       source  = "hashicorp/tfe"
       version = "~>0.0"
     }
+
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "4.9.0"
+    }
   }
 }
 
@@ -23,4 +28,9 @@ terraform {
 # Configure the DigitalOcean Provider
 provider "digitalocean" {
   token = var.do_token
+}
+
+provider "azurerm" {
+  features {}
+  subscription_id = var.azure_subscription
 }

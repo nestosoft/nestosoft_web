@@ -1,1 +1,2 @@
 do_token = <<KEY>>
+azure_subscription = "<<SUBSCRIPTION_ID>>"

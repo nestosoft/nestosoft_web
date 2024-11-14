@@ -11,3 +11,8 @@ variable "environment" {
   type        = string
   description = "(Required) Environment of all resources"
 }
+
+variable "azure_subscription" {
+  type        = string
+  description = "(Required) Azure subscription"
+}
