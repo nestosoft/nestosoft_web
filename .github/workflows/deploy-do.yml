@@ -3,6 +3,10 @@ name: Deploy to Digital Ocean
 on:
   push:
     branches: [main]
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 permissions:
   contents: read
@@ -14,7 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy the app
-        uses: digitalocean/app_action/deploy@v2
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_TOKEN }}
+
+      - name: Deploy the app
+        run: |
+          doctl apps create-deployment ${{secrets.DO_APP_ID}} --format ID,Status -t ${{ secrets.DO_TOKEN }}
