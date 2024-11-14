@@ -10,7 +10,8 @@ resource "azurerm_static_web_app" "nesotosoft-web" {
   tags = local.common_tags
 }
 
-import {
-  to = azurerm_static_web_app.nesotosoft-web
-  id = "/subscriptions/bf63e21c-08f2-4d35-b7cb-bd9873095aef/resourceGroups/nestosoft-web/providers/Microsoft.Web/staticSites/nestosoft-web"
-}
+# Commented as it has been imported already
+# import {
+#   to = azurerm_static_web_app.nesotosoft-web
+#   id = "/subscriptions/bf63e21c-08f2-4d35-b7cb-bd9873095aef/resourceGroups/nestosoft-web/providers/Microsoft.Web/staticSites/nestosoft-web"
+# }

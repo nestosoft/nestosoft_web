@@ -47,6 +47,8 @@ resource "digitalocean_app" "nestosoft-web" {
       }
     }
   }
+
+
 }
 
 # COmmented as it has been imported already
