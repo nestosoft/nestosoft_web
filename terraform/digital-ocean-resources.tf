@@ -1,21 +1,6 @@
 ##################################################################################
-# LOCALS
-##################################################################################
-
-locals {
-
-  common_tags = {
-    Environment = var.environment
-  }
-
-  name_prefix = "${var.prefix}-${var.environment}"
-
-}
-
-##################################################################################
 # RESOURCES
 ##################################################################################
-
 
 resource "digitalocean_app" "nestosoft-web" {
   spec {
@@ -64,8 +49,8 @@ resource "digitalocean_app" "nestosoft-web" {
   }
 }
 
-
-import {
-  to = digitalocean_app.nestosoft-web
-  id = "1a1f5b79-b5be-40a3-8549-86d7e05d3815"
-}
+# COmmented as it has been imported already
+# import {
+#   to = digitalocean_app.nestosoft-web
+#   id = "1a1f5b79-b5be-40a3-8549-86d7e05d3815"
+# }

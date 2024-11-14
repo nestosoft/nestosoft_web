@@ -1,4 +1,4 @@
-name: Update App
+name: Deploy to Digital Ocean
 
 on:
   push:
