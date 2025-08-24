@@ -11,7 +11,7 @@ const Navigation = () => {
             <NavLink
               to="/"
               className={({ isActive }) => {
-                return isActive ? 'underline' : 'text-black';
+                return isActive ? 'underline text-blue-600 dark:text-blue-400' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400';
               }}
             >
               <NavigationMenuLink>Home</NavigationMenuLink>

@@ -3,8 +3,8 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 const Home = ({}) => {
     return (
     <>
-        <h1 className="text-xl font-bold underline">Ernesto Perez</h1>
-        <h2>Hey there, my name is Ernesto Perez and I'm a experieced software engineer. I work as a consultant helping companies to:</h2>
+        <h1 className="text-xl font-bold underline text-black dark:text-white">Ernesto Perez</h1>
+        <h2 className="text-gray-700 dark:text-gray-300">Hey there, my name is Ernesto Perez and I'm a experieced software engineer. I work as a consultant helping companies to:</h2>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger>Deliver projects</AccordionTrigger>
