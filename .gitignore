@@ -30,3 +30,6 @@ terraform/.terraform
 # Environments
 *.local
 
+# WARP
+.WARP
+
