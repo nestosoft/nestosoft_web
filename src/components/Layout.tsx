@@ -1,26 +1,30 @@
 
 import {  Outlet } from 'react-router-dom';
 import Navigation from './Navigation';
-import ThemeToggle from './ThemeToggle';
-import logo from '../../public/nestosoft_logo_black_icon.svg'
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next'
+import logo from '../../public/nestosoft-logo.png'
 
 
 const Layout = ({}) => {
-    console.log(import.meta.env.VITE_HOST)   
+    const { t } = useTranslation();
     return (
-        <div className='min-h-screen bg-white dark:bg-gray-900 container mx-auto mt-4 transition-colors'>
-          <header className='flex flex-row items-center justify-between'>
-            <div className='flex flex-row items-center'>
-              <img alt="nestosoft logo"  src={logo} className='h-8 mr-2 '/>
+        <div className='min-h-screen bg-black text-white'>
+          <header className='fixed top-0 w-full z-[1000] bg-black/80 backdrop-blur-xl border-b border-white/10'>
+            <nav className='container flex flex-row items-center justify-between py-8'>
+              <div className='logo flex items-center gap-2'>
+                <img alt="nestosoft logo" src={logo} className='h-6' />
+                <span className='hidden md:inline'>NESTOSOFT</span>
+              </div>
               <Navigation />
-            </div>
-            <ThemeToggle />
+              <LanguageSwitcher />
+            </nav>
           </header>
-          <div className='content mt-2'>
+          <main className='pt-[180px]'>
             <Outlet />
-          </div>
-          <footer className='text-gray-600 dark:text-gray-400 mt-8'>
-            Hosted in {import.meta.env.VITE_HOST}
+          </main>
+          <footer className='text-white/40 text-center py-12 border-t border-white/10'>
+            © {new Date().getFullYear()} Nestosoft. {t('footer.rights')}
           </footer>
         </div> 
     )

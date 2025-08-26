@@ -1,0 +1,58 @@
+nav:
+  home: "Home"
+  services: "Services"
+  about: "About"
+  contact: "Contact"
+  caseStudies: "Case studies"
+
+hero:
+  title:
+    part1: "Code."
+    part2: "Create."
+    part3: "Scale."
+  subtitle: "We build software solutions that push boundaries and deliver exceptional results"
+  cta: "Let's Talk"
+
+services:
+  title: "What We Do"
+  items:
+    1:
+      title: "Web Development"
+      desc: "Modern web applications built with React, Next.js, and cutting-edge technologies for optimal performance."
+    2:
+      title: "Mobile Apps"
+      desc: "Native iOS and Android applications, plus cross-platform solutions with React Native and Flutter."
+    3:
+      title: "Cloud Infrastructure"
+      desc: "Scalable cloud solutions using AWS, Azure, and Google Cloud for enterprise-grade reliability."
+    4:
+      title: "API Development"
+      desc: "Robust RESTful and GraphQL APIs designed for scalability, security, and seamless integration."
+    5:
+      title: "DevOps & CI/CD"
+      desc: "Automated deployment pipelines and infrastructure as code for reliable, fast delivery."
+    6:
+      title: "AI Integration"
+      desc: "Custom AI solutions, machine learning models, and intelligent automation to transform your business processes."
+
+about:
+  title: "About Nestosoft"
+  p1: "We are a software development studio focused on creating elegant, scalable, and robust digital products. Our multidisciplinary team combines deep technical expertise with a keen eye for design."
+  p2: "From startups to enterprise, we partner closely with clients to deliver measurable impact and exceptional user experiences."
+  stats:
+    projects: "Projects"
+    years: "Years Experience"
+    satisfaction: "Client Satisfaction"
+  codeLine: "Turn idea into product"
+  codeComment: "// scalable. reliable. beautiful."
+
+contact:
+  title: "Let's build something great"
+  subtitle: "Tell us about your project and we'll get back to you within 24 hours."
+  emailLabel: "Email"
+  locationLabel: "Location"
+  locationValue: "Worldwide / Remote"
+
+footer:
+  hostedIn: "Hosted in {{host}}"
+  rights: "All rights reserved."

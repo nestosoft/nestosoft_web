@@ -1,0 +1,58 @@
+nav:
+  home: "Inicio"
+  services: "Servicios"
+  about: "Acerca de"
+  contact: "Contacto"
+  caseStudies: "Casos de estudio"
+
+hero:
+  title:
+    part1: "Código."
+    part2: "Crea."
+    part3: "Escala."
+  subtitle: "Construimos soluciones de software que rompen límites y entregan resultados excepcionales"
+  cta: "Hablemos"
+
+services:
+  title: "Qué hacemos"
+  items:
+    1:
+      title: "Desarrollo Web"
+      desc: "Aplicaciones web modernas con React, Next.js y tecnologías de vanguardia para un rendimiento óptimo."
+    2:
+      title: "Apps Móviles"
+      desc: "Aplicaciones nativas iOS y Android, además de soluciones multiplataforma con React Native y Flutter."
+    3:
+      title: "Infraestructura Cloud"
+      desc: "Soluciones en la nube escalables con AWS, Azure y Google Cloud para confiabilidad de nivel empresarial."
+    4:
+      title: "Desarrollo de APIs"
+      desc: "APIs REST y GraphQL robustas, diseñadas para escalabilidad, seguridad e integración sin fricciones."
+    5:
+      title: "DevOps y CI/CD"
+      desc: "Pipelines de despliegue automatizados e infraestructura como código para entregas rápidas y fiables."
+    6:
+      title: "Integración de IA"
+      desc: "Soluciones de IA a medida, modelos de machine learning y automatización inteligente para transformar tu negocio."
+
+about:
+  title: "Sobre Nestosoft"
+  p1: "Somos un estudio de desarrollo de software enfocado en crear productos digitales elegantes, escalables y robustos. Nuestro equipo multidisciplinario combina profunda experiencia técnica con un gran sentido del diseño."
+  p2: "Desde startups hasta empresas, nos asociamos estrechamente con los clientes para entregar impacto medible y experiencias excepcionales."
+  stats:
+    projects: "Proyectos"
+    years: "Años de experiencia"
+    satisfaction: "Satisfacción del cliente"
+  codeLine: "Convertir idea en producto"
+  codeComment: "// escalable. fiable. hermoso."
+
+contact:
+  title: "Construyamos algo grandioso"
+  subtitle: "Cuéntanos sobre tu proyecto y te responderemos en 24 horas."
+  emailLabel: "Correo"
+  locationLabel: "Ubicación"
+  locationValue: "En todo el mundo / Remoto"
+
+footer:
+  hostedIn: "Alojado en {{host}}"
+  rights: "Todos los derechos reservados."

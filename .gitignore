@@ -31,5 +31,5 @@ terraform/.terraform
 *.local
 
 # WARP
-.WARP
+WARP.md
 
