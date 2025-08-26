@@ -20,7 +20,7 @@ const Layout = ({}) => {
               <LanguageSwitcher />
             </nav>
           </header>
-          <main className='pt-[180px]'>
+          <main className='pt-[140px] md:pt-[180px]'>
             <Outlet />
           </main>
           <footer className='text-white/40 text-center py-12 border-t border-white/10'>
