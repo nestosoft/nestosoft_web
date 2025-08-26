@@ -5,8 +5,10 @@ import Rememberthis from "./components/Rememberthis"
 import NotFound from "./pages/NotFound"
 import Layout from "./components/Layout"
 import { ThemeProvider } from "./contexts/ThemeContext"
+import { useDocumentLanguage } from "./hooks/useDocumentLanguage"
 
 function App() {
+    useDocumentLanguage();
     return (
         <ThemeProvider>
           <BrowserRouter>
