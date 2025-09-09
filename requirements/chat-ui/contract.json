@@ -1,0 +1,640 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Technical Recruiter Chat Bot",
+        "description": "AI-powered chat bot for technical recruitment interviews",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Root",
+                "description": "Root endpoint with API information.",
+                "operationId": "root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat": {
+            "post": {
+                "summary": "Chat",
+                "description": "Main chat endpoint.",
+                "operationId": "chat_chat_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ChatResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload-cv": {
+            "post": {
+                "summary": "Upload Cv",
+                "description": "Upload and analyze CV PDF.",
+                "operationId": "upload_cv_upload_cv_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_cv_upload_cv_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/verify": {
+            "post": {
+                "summary": "Send Verification Code",
+                "description": "Send verification code to email or phone.",
+                "operationId": "send_verification_code_verify_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VerificationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VerificationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/verify-code": {
+            "post": {
+                "summary": "Verify Code",
+                "description": "Verify the provided code.",
+                "operationId": "verify_code_verify_code_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CodeVerificationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/models": {
+            "get": {
+                "summary": "Get Available Models",
+                "description": "Get list of available LLM models.",
+                "operationId": "get_available_models_models_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/switch-model": {
+            "post": {
+                "summary": "Switch Model",
+                "description": "Switch to a different LLM model.",
+                "operationId": "switch_model_switch_model_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ModelSwitchRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/conversation/{conversation_id}": {
+            "get": {
+                "summary": "Get Conversation Info",
+                "description": "Get information about a specific conversation.",
+                "operationId": "get_conversation_info_conversation__conversation_id__get",
+                "parameters": [
+                    {
+                        "name": "conversation_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Conversation Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/conversations": {
+            "get": {
+                "summary": "List Conversations",
+                "description": "List conversations, optionally filtered by user.",
+                "operationId": "list_conversations_conversations_get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "summary": "Health Check",
+                "description": "Health check endpoint.",
+                "operationId": "health_check_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_upload_cv_upload_cv_post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    },
+                    "conversation_id": {
+                        "type": "string",
+                        "title": "Conversation Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file",
+                    "conversation_id"
+                ],
+                "title": "Body_upload_cv_upload_cv_post"
+            },
+            "ChatRequest": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message",
+                        "description": "User message"
+                    },
+                    "conversation_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Conversation Id",
+                        "description": "Existing conversation ID"
+                    },
+                    "user_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Id",
+                        "description": "Existing user ID"
+                    },
+                    "user_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Name",
+                        "description": "User's name"
+                    },
+                    "email": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Email",
+                        "description": "User's email"
+                    },
+                    "phone": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Phone",
+                        "description": "User's phone number"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "ChatRequest"
+            },
+            "ChatResponse": {
+                "properties": {
+                    "response": {
+                        "type": "string",
+                        "title": "Response",
+                        "description": "Agent response"
+                    },
+                    "conversation_id": {
+                        "type": "string",
+                        "title": "Conversation Id",
+                        "description": "Conversation ID"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id",
+                        "description": "User ID"
+                    },
+                    "model_info": {
+                        "additionalProperties": true,
+                        "type": "object",
+                        "title": "Model Info",
+                        "description": "Current model information"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "response",
+                    "conversation_id",
+                    "user_id",
+                    "model_info"
+                ],
+                "title": "ChatResponse"
+            },
+            "CodeVerificationRequest": {
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id",
+                        "description": "User ID"
+                    },
+                    "code": {
+                        "type": "string",
+                        "title": "Code",
+                        "description": "Verification code"
+                    },
+                    "contact_info": {
+                        "type": "string",
+                        "title": "Contact Info",
+                        "description": "Email or phone number used"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "code",
+                    "contact_info"
+                ],
+                "title": "CodeVerificationRequest"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ModelSwitchRequest": {
+                "properties": {
+                    "model_name": {
+                        "type": "string",
+                        "title": "Model Name",
+                        "description": "Name of the model to switch to"
+                    },
+                    "conversation_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Conversation Id",
+                        "description": "Conversation ID"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "model_name"
+                ],
+                "title": "ModelSwitchRequest"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "VerificationRequest": {
+                "properties": {
+                    "contact_info": {
+                        "type": "string",
+                        "title": "Contact Info",
+                        "description": "Email or phone number"
+                    },
+                    "contact_type": {
+                        "type": "string",
+                        "title": "Contact Type",
+                        "description": "'email' or 'phone'"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "title": "User Id",
+                        "description": "User ID"
+                    },
+                    "user_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "User Name",
+                        "description": "User's name",
+                        "default": "User"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "contact_info",
+                    "contact_type",
+                    "user_id"
+                ],
+                "title": "VerificationRequest"
+            },
+            "VerificationResponse": {
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "title": "Success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "expires_in": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Expires In"
+                    },
+                    "error": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Error"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "success",
+                    "message"
+                ],
+                "title": "VerificationResponse"
+            }
+        }
+    }
+}
